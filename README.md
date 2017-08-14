@@ -12,7 +12,7 @@ To be ran continuously, will log in to the specified forum account (in data/cred
     - Load forum threads to bump from file
 2. Main cycle
     - Fire up Mechanize browser
-    - Log in to TRiBot forums
+    - Log in to [TRiBot](http://www.tribot.org) forums
     - Bump each specified thread
         - Navigate to thread's page
         - Utilize bump feature
