@@ -4,6 +4,7 @@ To be ran continuously, will log in to the specified forum account (in data/cred
 ### Architecture
 - Language: [Python](https://www.python.org/)
 - Libraries:
+    - [Mechanize] (http://mechanize.readthedocs.io/en/latest/index.html)
 
 ### Basic Logic Flow
 (Coming soon)
