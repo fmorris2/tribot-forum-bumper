@@ -7,8 +7,18 @@ To be ran continuously, will log in to the specified forum account (in data/cred
     - [Mechanize](http://mechanize.readthedocs.io/en/latest/index.html)
 
 ### Basic Logic Flow
-(Coming soon)
-
+1. Startup routine
+    - Load forum credentials from file
+    - Load forum threads to bump from file
+2. Main cycle
+    - Fire up Mechanize browser
+    - Log in to TRiBot forums
+    - Bump each specified thread
+        - Navigate to thread's page
+        - Utilize bump feature
+    - Shut down Mechanize browser
+    - Sleep for specified cycle time (bump interval)
+    
 ### Deployment
 (Coming soon)
 
