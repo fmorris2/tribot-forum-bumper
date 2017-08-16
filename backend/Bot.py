@@ -6,7 +6,6 @@ class Bot:
     CYCLE_TIME = (60 * 60 * 4) + 1
 
     LOGIN_URL = 'https://tribot.org/forums/login/'
-    FORUM_INDEX = 'https://tribot.org/forums/'
     USER_AGENT = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1'
 
     """
@@ -91,7 +90,7 @@ class Bot:
         return '<span id="elBumpDisabled' in html
 
     """
-    Returns the mapping of post paramaters to values
+    Returns the mapping of post parameters to values
     for the login request
     """
     def get_post_payload(self, hidden_fields):
