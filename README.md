@@ -1,5 +1,5 @@
 # Overview of TRiBot Forum Bumper (TFB)
-To be ran continuously, will log in to the specified forum account (in data/credentials file), and bump the specified threads as soon as they can. TRiBot has a 4 hour interval between forum bumps.
+To be ran continuously, will log in to the specified forum account (in data/credentials file), and bump the specified threads. TRiBot has a 4 hour interval between forum bumps.
 
 ### Architecture
 - Language: [Python](https://www.python.org/)
@@ -19,10 +19,12 @@ To be ran continuously, will log in to the specified forum account (in data/cred
     
 ### Deployment
 1. Install Python
-2. Install Requests module
-3. Install PyExecJS module
-4. Install Node.js
-5. Run!
+2. Install cfscrape module
+3. Install lxml module
+4. Install Requests module
+5. Install PyExecJS module
+6. Install Node.js
+7. Run!
 
 ### Usage
 1. Create a file "credentials" in the project/data/ directory with the contents:
