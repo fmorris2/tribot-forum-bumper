@@ -4,4 +4,5 @@ import os, backend.Bot as Bot
 ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 bot = Bot.Bot(ROOT_PATH)
-bot.cycle()
+while True:
+    bot.cycle()
