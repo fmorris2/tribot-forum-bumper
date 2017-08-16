@@ -1,26 +1,34 @@
 # Overview of TRiBot Forum Bumper (TFB)
-To be ran continuously, will log in to the specified forum account (in data/credentials file), and bump the specified threads as soon as they can. TRiBot has a 3 hour interval between forum bumps.
+To be ran continuously, will log in to the specified forum account (in data/credentials file), and bump the specified threads as soon as they can. TRiBot has a 4 hour interval between forum bumps.
 
 ### Architecture
 - Language: [Python](https://www.python.org/)
 - Libraries:
-    - [Mechanize](http://mechanize.readthedocs.io/en/latest/index.html)
+    - [cloudflare-scrape](https://github.com/Anorov/cloudflare-scrape)
 
 ### Basic Logic Flow
 1. Startup routine
     - Load forum credentials from file
-    - Load forum threads to bump from file
 2. Main cycle
-    - Fire up Mechanize browser
+    - Load forum threads to bump from file (loaded every cycle in case a change is made between cycles)
     - Log in to [TRiBot](http://www.tribot.org) forums
     - Bump each specified thread
         - Navigate to thread's page
         - Utilize bump feature
-    - Shut down Mechanize browser
     - Sleep for specified cycle time (bump interval)
     
 ### Deployment
-(Coming soon)
+1. Install Python
+2. Install Requests module
+3. Install PyExecJS module
+4. Install Node.js
+5. Run!
 
 ### Usage
-(Coming soon)
+1. Create a file "credentials" in the project/data/ directory with the contents:
+    - tribot username
+    - tribot password
+2. Create a file "threads" in the project/data/ folder with the link to each thread you want to bump. One thread per line!
+    - http://www.tribot.org/forums/thread_one
+    - http://www.tribot.org/forums/thread_two
+    
