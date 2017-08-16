@@ -19,10 +19,11 @@ To be ran continuously, will log in to the specified forum account (in data/cred
     
 ### Deployment
 1. Install Python
-2. Install Requests module
-3. Install PyExecJS module
-4. Install Node.js
-5. Run!
+2. Install cfscrape module
+3. Install Requests module
+4. Install PyExecJS module
+5. Install Node.js
+6. Run!
 
 ### Usage
 1. Create a file "credentials" in the project/data/ directory with the contents:
