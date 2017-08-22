@@ -3,8 +3,13 @@ To be ran continuously, will log in to the specified forum account (in data/cred
 
 ### Architecture
 - Language: [Python](https://www.python.org/)
-- Libraries:
+- Libraries / Modules:
     - [cloudflare-scrape](https://github.com/Anorov/cloudflare-scrape)
+    - [pyotp](https://github.com/pyotp/pyotp)
+    - [lxml](http://lxml.de/)
+    - [Requests](http://docs.python-requests.org/en/master/)
+    - [PyExecJS](https://pypi.python.org/pypi/PyExecJS)
+    - [Node.js](https://nodejs.org/en/)
 
 ### Basic Logic Flow
 1. Startup routine
@@ -23,13 +28,15 @@ To be ran continuously, will log in to the specified forum account (in data/cred
 3. Install lxml module
 4. Install Requests module
 5. Install PyExecJS module
-6. Install Node.js
-7. Run!
+6. Install pyotp module
+7. Install Node.js
+8. Run!
 
 ### Usage
 1. Create a file "credentials" in the project/data/ directory with the contents:
     - tribot username
     - tribot password
+    - 2fa secret key
 2. Create a file "threads" in the project/data/ folder with the link to each thread you want to bump. One thread per line!
     - http://www.tribot.org/forums/thread_one
     - http://www.tribot.org/forums/thread_two
