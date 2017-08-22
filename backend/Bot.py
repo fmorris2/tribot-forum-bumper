@@ -1,4 +1,4 @@
-import time, cfscrape, lxml.html
+import time, cfscrape, lxml.html, pyotp
 from loaders import credential_loader, thread_loader
 
 class Bot:
@@ -6,6 +6,7 @@ class Bot:
     CYCLE_TIME = (60 * 60 * 4) + 1
 
     LOGIN_URL = 'https://tribot.org/forums/login/'
+    TWO_FACTOR_AUTH_URL = 'https://tribot.org/forums/login/?_mfaLogin=1'
     USER_AGENT = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1'
 
     """
@@ -87,16 +88,41 @@ class Bot:
     is active
     """
     def is_thread_on_cooldown(self, html):
-        return '<span id="elBumpDisabled' in html
+        return 'id="elBumpEnabled' not in html
+
+    """
+    Calculates the 2FA code based off of the
+    base 32 secret key provided in the data/credentials
+    file
+    """
+    def get_2fa_code(self):
+        return pyotp.TOTP(self.credentials[2]).now()
+
+    """
+    Returns the required form fields to include
+    as the payload for the POST request to the
+    2FA verification URL
+    """
+    def get_2fa_payload(self, csrf_key):
+        return {'mfa_auth':'1', 'csrfKey':csrf_key,
+                'google_authenticator_auth_code':self.get_2fa_code()}
+
+    """
+    Sends a POST request to the 2FA URL
+    with the required payload. This verifies
+    the user with 2FA and successfully completes
+    the login process
+    """
+    def submit_2fa(self, csrf_key):
+        return self.cfscraper.post(self.TWO_FACTOR_AUTH_URL, data=self.get_2fa_payload(csrf_key))
 
     """
     Returns the mapping of post parameters to values
     for the login request
     """
-    def get_post_payload(self, hidden_fields):
+    def get_login_post_payload(self, hidden_fields):
         hidden_fields['auth'] = self.credentials[0]
         hidden_fields['password'] = self.credentials[1]
-        hidden_fields['google2fa'] = '55555'
         hidden_fields['signin_anonymous_checkbox'] = '1'
         hidden_fields['signin_anonymous'] = '0'
         hidden_fields['remember_me'] = '0'
@@ -126,5 +152,9 @@ class Bot:
         #parse the hidden form fields from the page (related to our session)
         hidden_fields = self.parse_form_fields(login_page.content)
         #POST the login page with the necessary fields
-        response = self.cfscraper.post(self.LOGIN_URL, data=self.get_post_payload(hidden_fields))
-        return '<title>Sign In - TRiBot Forums' not in response.content
+        self.cfscraper.post(self.LOGIN_URL, data=self.get_login_post_payload(hidden_fields))
+        #Submit 2FA code, get page response
+        response = self.submit_2fa(hidden_fields['csrfKey'])
+
+        return '<title>Sign In - TRiBot Forums' not in response.content \
+               and 'Verification Required' not in response.content
