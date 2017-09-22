@@ -88,7 +88,8 @@ class Bot:
     is active
     """
     def is_thread_on_cooldown(self, html):
-        return 'id="elBumpEnabled' not in html
+        print html
+        return 'id=\'elBumpEnabled\'' not in html
 
     """
     Calculates the 2FA code based off of the
@@ -149,6 +150,7 @@ class Bot:
     def login(self):
         #first, send a git request to get the login page source
         login_page = self.cfscraper.get(self.LOGIN_URL)
+        print login_page
         #parse the hidden form fields from the page (related to our session)
         hidden_fields = self.parse_form_fields(login_page.content)
         #POST the login page with the necessary fields
